@@ -1,15 +1,7 @@
 import os
 
 # customisable list of file extensions to ignore
-extensions = [
-    '.git',
-    '.gitignore', 
-    '.env', 
-    '.exe',
-    '.jpeg',
-    '.jpg', 
-    '.png'
-]
+extensions = ['.git', '.gitignore', '.env', '.exe','.jpeg', '.jpg', '.png']
 
 # list all files in the current dir and subdirs
 # exclude pycache and .git folders
@@ -32,12 +24,11 @@ def clean_files(files):
 def read_files(file_path):
     try:
         with open(file_path, 'r') as r:
-            return (len(r.read().split()))
+            return r.read()
     except Exception as e:
         print(f'Error reading {file_path}: {e}')
         return ''
         
-
 # roughly count the tokens
 # to-do: split longer words into tokens based on five letters per token
 # to-do: also split based on '(' and ')' 
