@@ -1,5 +1,0 @@
-extensions = [
-    '.git', 
-    '.env', 
-    '.exe'
-]
