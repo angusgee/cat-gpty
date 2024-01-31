@@ -1,4 +1,5 @@
 import os
+import settings 
 
 def list_files(dir):
     file_list = []
