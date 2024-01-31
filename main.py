@@ -1,8 +1,5 @@
 import os
 
-# customisable list of file extensions to ignore
-extensions = ['.git', '.gitignore', '.env', '.exe','.jpeg', '.jpg', '.png']
-
 # list all files in the current dir and subdirs
 # exclude pycache and .git folders
 def list_files(dir):
@@ -18,6 +15,7 @@ def list_files(dir):
 
 # exclude any files if their extension is in extensions list
 def clean_files(files):
+    extensions = ['.git', '.gitignore', '.env', '.exe','.jpeg', '.jpg', '.png']
     return [file for file in files if not any(file.endswith(ext) for ext in extensions)]
 
 # read files 
