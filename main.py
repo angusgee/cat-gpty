@@ -35,8 +35,7 @@ def count_tokens(file):
 
 def main():
     dir = os.getcwd()
-    files = list_files(dir)
-    cleaned_file_paths = clean_files(files)
+    cleaned_file_paths = clean_files(list_files(dir))
     for file in cleaned_file_paths:
         print(read_files(file))
 
