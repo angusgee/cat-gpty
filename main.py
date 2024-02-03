@@ -1,26 +1,26 @@
 import os
+import re
 
-# list all files in the current dir and subdirs
+# list all filepaths in the current dir and subdirs
 # exclude pycache and .git folders
 def list_files(dir):
-    file_list = []
+    file_paths= []
     for root, dirs, files in os.walk(dir):
         if '.git' in dirs:
             dirs.remove('.git')
         if '__pycache__' in dirs:
             dirs.remove('__pycache__')
         for file in files:
-            file_list.append(os.path.join(root, file))
-    print(f"list of files: {file_list}")
-    print(len(file_list))
-    return file_list
+            file_paths.append(os.path.join(root, file))
+    print(f"list of files: {file_paths}")
+    print(len(file_paths))
+    return file_paths
 
-# exclude files if their extension is in the list
+# exclude file if extension is in list
 def clean_files(files):
     extensions = ['.git', '.gitignore', '.env', '.exe','.jpeg', '.jpg', '.png']
     return [file for file in files if not any(file.endswith(ext) for ext in extensions)]
 
-# read files 
 def read_files(file_path):
     try:
         with open(file_path, 'r') as r:
@@ -29,20 +29,17 @@ def read_files(file_path):
         print(f'Error reading {file_path}: {e}')
         return ''
         
-# roughly count the tokens
-# to-do: split longer words into tokens based on five letters per token
-# to-do: also split based on '(' and ')' 
-def count_tokens(file):
-    return len(file.split())
+def count_tokens(text):
+    tokens = re.findall(r'\b\w+\b|\S', text)
+    return len(tokens)
 
 def main():
     dir = os.getcwd()
-    cleaned_file_paths = clean_files(list_files(dir))
-    print(f"cleaned file paths: {cleaned_file_paths}")
-    print(len(cleaned_file_paths))
-    # for file in cleaned_file_paths:
-        # print(count_tokens(read_files(file)))
-        # print(read_files(file))
+    cleaned_files_list = clean_files(list_files(dir))
+    for file in cleaned_files_list:
+        print(file.split('/')[-1])
+        print(f"count of tokens for {file}: {count_tokens(read_files(file))}")
+        print(read_files(file))
 
 if __name__ == '__main__':
     main()
