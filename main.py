@@ -58,12 +58,15 @@ def main():
     for file in cleaned_files_list:
         filename = file.split('/')[-1]
         print(f"count of tokens for {filename}: {count_tokens(remove_blank_rows(read_file(file)))}")
-        user_prompt = 0
-    while user_prompt not in [1, 2, 3, 4]:
+    while True:
         try:
-            user_prompt += get_user_input()
-        except:
-            print('please choose a valid option 1-4')
+            user_prompt = get_user_input()
+            if user_prompt in [1, 2, 3, 4, 5]:
+                break
+            else:
+                print('please choose a valid option 1-5')
+        except ValueError:
+            print('please enter a number')
             
 if __name__ == '__main__':
     main()
