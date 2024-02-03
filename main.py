@@ -11,9 +11,11 @@ def list_files(dir):
             dirs.remove('__pycache__')
         for file in files:
             file_list.append(os.path.join(root, file))
+    print(f"list of files: {file_list}")
+    print(len(file_list))
     return file_list
 
-# exclude any files if their extension is in extensions list
+# exclude files if their extension is in the list
 def clean_files(files):
     extensions = ['.git', '.gitignore', '.env', '.exe','.jpeg', '.jpg', '.png']
     return [file for file in files if not any(file.endswith(ext) for ext in extensions)]
@@ -36,8 +38,11 @@ def count_tokens(file):
 def main():
     dir = os.getcwd()
     cleaned_file_paths = clean_files(list_files(dir))
-    for file in cleaned_file_paths:
-        print(read_files(file))
+    print(f"cleaned file paths: {cleaned_file_paths}")
+    print(len(cleaned_file_paths))
+    # for file in cleaned_file_paths:
+        # print(count_tokens(read_files(file)))
+        # print(read_files(file))
 
 if __name__ == '__main__':
     main()
