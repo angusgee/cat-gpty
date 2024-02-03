@@ -21,13 +21,16 @@ def clean_files(files):
     extensions = ['.git', '.gitignore', '.env', '.exe','.jpeg', '.jpg', '.png']
     return [file for file in files if not any(file.endswith(ext) for ext in extensions)]
 
-def read_files(file_path):
+def read_file(file_path):
     try:
         with open(file_path, 'r') as r:
             return r.read()
     except Exception as e:
         print(f'Error reading {file_path}: {e}')
         return ''
+
+def remove_blank_rows(text):
+    return '\n'.join([line for line in text.splitlines() if line.strip() != ''])
         
 def count_tokens(text):
     tokens = re.findall(r'\b\w+\b|\S', text)
@@ -37,9 +40,9 @@ def main():
     dir = os.getcwd()
     cleaned_files_list = clean_files(list_files(dir))
     for file in cleaned_files_list:
-        print(file.split('/')[-1])
-        print(f"count of tokens for {file}: {count_tokens(read_files(file))}")
-        print(read_files(file))
+        filename = file.split('/')[-1]
+        print(f"count of tokens for {filename}: {count_tokens(remove_blank_rows(read_file(file)))}")
+        # print(remove_blank_rows(read_file(file)))
 
 if __name__ == '__main__':
     main()
