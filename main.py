@@ -36,14 +36,35 @@ def count_tokens(text):
     tokens = re.findall(r'\b\w+\b|\S', text)
     return len(tokens)
 
+def get_user_input():
+    return int(input("""
+    =========================
+    
+    Choose a proompt:
+    
+    1. Error checking
+    2. Security vulnerability assessment
+    3. Improvements to memory and time complexity
+    4. Add comments and create documentation
+    5. No prompt baby I'm raw dogging it
+    
+    =========================
+
+        """))
+
 def main():
     dir = os.getcwd()
     cleaned_files_list = clean_files(list_files(dir))
     for file in cleaned_files_list:
         filename = file.split('/')[-1]
         print(f"count of tokens for {filename}: {count_tokens(remove_blank_rows(read_file(file)))}")
-        # print(remove_blank_rows(read_file(file)))
-
+        user_prompt = 0
+    while user_prompt not in [1, 2, 3, 4]:
+        try:
+            user_prompt += get_user_input()
+        except:
+            print('please choose a valid option 1-4')
+            
 if __name__ == '__main__':
     main()
     
