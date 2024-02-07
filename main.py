@@ -12,8 +12,8 @@ def list_files(dir):
             dirs.remove('__pycache__')
         for file in files:
             file_paths.append(os.path.join(root, file))
-    print(f"list of files: {file_paths}")
-    print(len(file_paths))
+    # print(f"list of files: {file_paths}")
+    # print(len(file_paths))
     return file_paths
 
 # exclude file if extension is in list
@@ -54,7 +54,7 @@ def get_user_input():
     
     =========================
 
-        """))
+"""))
 
 def main():
     while True:
@@ -68,7 +68,7 @@ def main():
             print('please enter a number')
     dir = os.getcwd()
     file_list = remove_files(list_files(dir))
-    prompt_text = ''
+    prompt_text = '```'
     total_token_count = 0
     for file in file_list:
         filename = file.split('/')[-1]
