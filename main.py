@@ -89,7 +89,7 @@ def main():
     while True:
         try:
             shall_proceed = input(f'total token count: {total_token_count}\n do you wish to proceed? Y/N')
-            if shall_proceed == 'Y':
+            if shall_proceed.upper() == 'Y':
                 break
             else:
                 print('please select or deselect files')
@@ -97,7 +97,7 @@ def main():
             print('please choose a valid character')
 
     print(f"{prompts[user_prompt - 1]},{prompt_text}")
-    print(f"total tokens: {total_token_count}")
+    # print(f"total tokens: {total_token_count}")
         
     # output to file
     # copy to clipboard
