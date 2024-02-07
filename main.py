@@ -79,8 +79,7 @@ def main():
     total_token_count = 0
     for file in file_list:
         filename = file.split('/')[-1]
-        blank_rows_removed = remove_blank_rows(read_file(file))
-        text_with_delimiters = add_delimiters(blank_rows_removed)
+        text_with_delimiters = add_delimiters(remove_blank_rows(read_file(file)))
         token_count =  count_tokens(text_with_delimiters)
         total_token_count += token_count
         print(f"count of tokens for {filename}: {token_count}")
@@ -98,7 +97,7 @@ def main():
             print('please choose a valid character')
 
     print(f"{prompts[user_prompt - 1]},{prompt_text}")
-    # print(f"total tokens: {total_token_count}")
+    print(f"total tokens: {total_token_count}")
         
     # output to file
     # copy to clipboard
