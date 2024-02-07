@@ -56,6 +56,13 @@ def get_user_input():
 
 """))
 
+prompts = [
+    'Act as a senior software engineer performing a code review. Your task is to review the coding project delimited by backticks for potential bugs. Ask as many questions as you need to understand the project before starting.',
+    'Act as a senior security engineer performing a code review. Your task is to review the coding project delimited by backticks for security vulnerabilities and suggest ways to make the code more secure. Ask as many questions as you need to understand the project before starting.', 
+    'Act as a senior software engineer performing a code review. Your task is to review the coding project delimited by backticks for ways to make the code more effecitent in terms of memory and time complexity. Ask as many questions as you need to understand the project before starting.', 
+    'Act as a senior software engineer. Your task is to create documentation for the project delimited by backticks. You shall also review the code for readability and add any comments you think are necessary to make the code easier to understand. Ask as many questions as you need to understand the project before starting.' 
+]
+
 def main():
     while True:
         try:
@@ -79,13 +86,10 @@ def main():
         print(f"count of tokens for {filename}: {token_count}")
         file_text = f"\n{filename}:\n {text_with_delimiters}"
         prompt_text += file_text
-    print(prompt_text)
+    
+    print(f"{prompts[user_prompt - 1]},{prompt_text}")
     print(f"total tokens: {total_token_count}")
         
-        
-
-    # concatenate the delimited strings, filepaths, and text together
-    # add the prompt based on user selection
     # output to file
     # copy to clipboard
                 
