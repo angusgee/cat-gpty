@@ -33,7 +33,7 @@ def remove_blank_rows(text):
     return '\n'.join([line for line in text.splitlines() if line.strip() != ''])
 
 def add_delimiters(text):
-    return f"{text}```"
+    return f"{text}\n```"
         
 def count_tokens(text):
     tokens = re.findall(r'\b\w+\b|\S', text)
@@ -75,7 +75,7 @@ def main():
             print('please enter a number')
     dir = os.getcwd()
     file_list = remove_files(list_files(dir))
-    prompt_text = '```'
+    prompt_text = '\n```'
     total_token_count = 0
     for file in file_list:
         filename = file.split('/')[-1]
@@ -83,7 +83,7 @@ def main():
         token_count =  count_tokens(text_with_delimiters)
         total_token_count += token_count
         print(f"count of tokens for {filename}: {token_count}")
-        file_text = f"\n{filename}:\n {text_with_delimiters}"
+        file_text = f"\n<{filename}>:\n {text_with_delimiters}"
         prompt_text += file_text
     
     while True:
@@ -98,7 +98,14 @@ def main():
 
     print(f"{prompts[user_prompt - 1]},{prompt_text}")
     # print(f"total tokens: {total_token_count}")
+    
+    try:    
+        with open('prompt.txt', 'w', encoding='utf8') as f:
+            f.write(f'{prompts[user_prompt - 1]}\n{prompt_text}')
+    except OSError as e:
+        print(f'error saving to file: {e}')
         
+    
     # output to file
     # copy to clipboard
                 
