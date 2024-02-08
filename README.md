@@ -1,6 +1,6 @@
 # CatGippity
 
-CLI tool for improved proompting.
+Windows and Linux utility for improved proompting.
 
 For optimum results from AI, it's best to give the model the entire context of your project, and use delimiters to help it parse the content.
 
@@ -25,7 +25,9 @@ Choose to add on a pre-proompt:
 
 The contents of your project are named and concatenated together, exported to a file and copied to your clipboard.
 
-You can get the entire context of your project with only a couple of key presses
+You can get the entire context of your project with only a couple of key presses.
+
+Pro tip: iterate! Asking it to check again only takes a few more seconds and mitigates against innacurate results. Why not have it review your code for bugs, then check again for vulnerabilities?
 
 ## Getting started
 
