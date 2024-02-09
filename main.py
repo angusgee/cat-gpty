@@ -12,8 +12,6 @@ def list_files(dir):
             dirs.remove('__pycache__')
         for file in files:
             file_paths.append(os.path.join(root, file))
-    # print(f"list of files: {file_paths}")
-    # print(len(file_paths))
     return file_paths
 
 # exclude file if extension is in list
@@ -42,19 +40,17 @@ def count_tokens(text):
 
 def get_user_input():
     return int(input("""
-    =========================
-    
-    Choose a proompt:
-    
-    1. Error checking
-    2. Security vulnerability assessment
-    3. Improvements to memory and time complexity
-    4. Add comments and create documentation
-    5. No prompt baby I'm raw dogging it
-    
-    =========================
+=========================
 
-"""))
+1. Error checking
+2. Security vulnerability assessment
+3. Improvements to memory and time complexity
+4. Add comments and create documentation
+5. No prompt baby I'm raw dogging it
+
+=========================
+
+Choose a prompt: """))
 
 prompts = [
     'Act as a senior software engineer performing a code review. Your task is to review the coding project delimited by backticks for potential bugs. Ask as many questions as you need to understand the project before starting.',
@@ -88,7 +84,7 @@ def main():
     
     while True:
         try:
-            shall_proceed = input(f'total token count: {total_token_count}\n do you wish to proceed? Y/N')
+            shall_proceed = input(f'total token count: {total_token_count}\n do you wish to proceed? Y/N: ')
             if shall_proceed.upper() == 'Y':
                 break
             else:
@@ -96,18 +92,16 @@ def main():
         except ValueError: 
             print('please choose a valid character')
 
-    print(f"{prompts[user_prompt - 1]},{prompt_text}")
-    # print(f"total tokens: {total_token_count}")
+    print(f"{prompts[user_prompt - 1]} {prompt_text}")
     
     try:    
         with open('prompt.txt', 'w', encoding='utf8') as f:
             f.write(f'{prompts[user_prompt - 1]}\n{prompt_text}')
     except OSError as e:
-        print(f'error saving to file: {e}')
-        
-    
-    # output to file
+        print(f'error saving to file: {e}')   
+ 
     # copy to clipboard
+    
                 
 if __name__ == '__main__':
     main()
