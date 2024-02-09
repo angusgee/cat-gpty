@@ -1,19 +1,17 @@
 import os
 import re
+import glob
 
 # list all filepaths in the current dir and subdirs
-# exclude pycache and .git folders
+# exclude pycache, node_modules, and .git folders
 def list_files(dir):
-    file_paths= []
-    for root, dirs, files in os.walk(dir):
-        if '.git' in dirs:
-            dirs.remove('.git')
-        if '__pycache__' in dirs:
-            dirs.remove('__pycache__')
-        for file in files:
-            file_paths.append(os.path.join(root, file))
-    return file_paths
-
+    pattern = os.path.join(dir, '**', '*')
+    all_paths = glob.glob(pattern, recursive=True)
+    files = [path for path in all_paths if os.path.isfile(path)]
+    cleaned_files = [f for f in files if "pycache" not in f and '.git' not in f and 'node_modules' not in f]
+    print(cleaned_files)
+    return cleaned_files
+ 
 # exclude file if extension is in list
 def remove_files(files):
     extensions = ['.git', '.gitignore', '.env', '.exe','.jpeg', '.jpg', '.png']
@@ -88,7 +86,8 @@ def main():
             if shall_proceed.upper() == 'Y':
                 break
             else:
-                print('please select or deselect files')
+                # print('please select or deselect files')
+                break
         except ValueError: 
             print('please choose a valid character')
 
