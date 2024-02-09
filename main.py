@@ -1,6 +1,7 @@
 import os
 import re
 import glob
+import pyperclip
 
 # list all filepaths in the current dir and subdirs
 # exclude pycache, node_modules, and .git folders
@@ -92,7 +93,10 @@ def main():
             print('please choose a valid character')
 
     print(f"{prompts[user_prompt - 1]} {prompt_text}")
+    pyperclip.copy(f"{prompts[user_prompt - 1]} {prompt_text}")
+ 
     
+        
     try:    
         with open('prompt.txt', 'w', encoding='utf8') as f:
             f.write(f'{prompts[user_prompt - 1]}\n{prompt_text}')
