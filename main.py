@@ -52,10 +52,10 @@ def get_user_input():
 Choose a prompt: """))
 
 prompts = [
-    'Act as a senior software engineer performing a code review. Your task is to review the coding project delimited by backticks for potential bugs. Ask as many questions as you need to understand the project before starting.',
-    'Act as a senior security engineer performing a code review. Your task is to review the coding project delimited by backticks for security vulnerabilities and suggest ways to make the code more secure. Ask as many questions as you need to understand the project before starting.', 
-    'Act as a senior software engineer performing a code review. Your task is to review the coding project delimited by backticks for ways to make the code more effecitent in terms of memory and time complexity. Ask as many questions as you need to understand the project before starting.', 
-    'Act as a senior software engineer. Your task is to create documentation for the project delimited by backticks. You shall also review the code for readability and add any comments you think are necessary to make the code easier to understand. Ask as many questions as you need to understand the project before starting.' 
+    'Act as a senior software engineer performing a code review. Your task is to review the following coding project for potential bugs. The project files are named and delimited by backticks. Ask as many questions as you need to understand the project before starting.',
+    'Act as a senior security engineer performing a code review. Your task is to review the following coding project for security vulnerabilities and suggest ways to make the code more secure. The project files are named and delimited by backticks. Ask as many questions as you need to understand the project before starting.', 
+    'Act as a senior software engineer performing a code review. Your task is to review the following coding project for ways to make the code more effecitent in terms of memory and time complexity. The project files are named and delimited by backticks. Ask as many questions as you need to understand the project before starting.', 
+    'Act as a senior software engineer. Your task is to create documentation for the following project. The project files are named and delimited by backticks. You shall also review the code for readability and add any comments you think are necessary to make the code easier to understand. Ask as many questions as you need to understand the project before starting.' 
 ]
 
 def main():
