@@ -31,4 +31,4 @@ Pro tip: iterate! Asking it to check again only takes a few more seconds and mit
 
 ## Getting started
 
-tbc
+tbc.
