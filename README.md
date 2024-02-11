@@ -1,18 +1,18 @@
-# CatGippity
+# CatGpty
 
-Windows and Linux utility for improved proompting.
+Cat Gippity is a Windows and Linux utility for improved proompting.
 
 For optimum results from AI, it's best to give the model the entire context of your project, and use delimiters to help it parse the content.
 
 ## Problem statement
 
-Copying all your project files' contents, delimiting manually, and pasting into Chat Gippity is time consuming.
+Copying all your project files' contents, delimiting manually, and pasting into ChatGPT or a similar API is time consuming.
 
 Also, you won't know you're going to exceed the token limit until you do.
 
 ## Solution
 
-CatGippity solves these issues for you.
+CatGpty solves these issues for you.
 
 Run the script from your project root folder and select the files to include.
 

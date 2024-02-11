@@ -92,10 +92,10 @@ def main():
         except ValueError: 
             print('please choose a valid character')
 
-    print(f"{prompts[user_prompt - 1]} {prompt_text}")
-    pyperclip.copy(f"{prompts[user_prompt - 1]} {prompt_text}")
- 
+    # print(f"{prompts[user_prompt - 1]} {prompt_text}")
     
+    # copy to clipboard
+    pyperclip.copy(f"{prompts[user_prompt - 1]} {prompt_text}")
         
     try:    
         with open('prompt.txt', 'w', encoding='utf8') as f:
@@ -103,9 +103,6 @@ def main():
     except OSError as e:
         print(f'error saving to file: {e}')   
  
-    # copy to clipboard
-    
-                
 if __name__ == '__main__':
     main()
     
