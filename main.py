@@ -1,6 +1,7 @@
 import os
 import re
 import glob
+import curses
 import pyperclip
 
 prompts = [
@@ -17,7 +18,7 @@ def list_files(dir):
     all_paths = glob.glob(pattern, recursive=True)
     files = [path for path in all_paths if os.path.isfile(path)]
     cleaned_files = [f for f in files if "pycache" not in f and '.git' not in f and 'node_modules' not in f]
-    print(cleaned_files)
+    # print(cleaned_files)
     return cleaned_files
  
 # exclude file if extension is in list
@@ -43,14 +44,6 @@ def count_tokens(text):
     tokens = re.findall(r'\b\w+\b|\S', text)
     return len(tokens)
 
-def process_filename_and_contents(file):
-    filename = file.split('/')[-1]
-    text_with_delimiters = add_delimiters(remove_blank_rows(read_file(file)))
-    token_count = count_tokens(text_with_delimiters)
-    print(f"count of tokens for {filename}: {token_count}")
-    file_text = f"\n<{filename}>:\n {text_with_delimiters}"
-    return file_text, token_count
-
 def get_user_input():
     return int(input("""
 =========================
@@ -64,6 +57,54 @@ def get_user_input():
 =========================
 
 Choose a prompt: """))
+
+def process_filename_and_contents(file):
+    filename = file.split('/')[-1]
+    text_with_delimiters = add_delimiters(remove_blank_rows(read_file(file)))
+    token_count = count_tokens(text_with_delimiters)
+    print(f"count of tokens for {filename}: {token_count}")
+    file_text = f"\n<{filename}>:\n {text_with_delimiters}"
+    return file_text, filename, token_count
+
+def select_files(stdscr, files):
+    # hide the cursor
+    curses.curs_set(0)  
+    curses.init_pair(1, curses.COLOR_BLACK, curses.COLOR_WHITE)
+    # create a list of false values the same length as the file list
+    selected = [False] * len(files)
+    current_line = 0
+
+    while True:
+        stdscr.clear()
+        stdscr.addstr(0, 0, "Please select the files you wish to use: \n")
+        # Display the files and selection state
+        for i, file in enumerate(files):
+            line_position = i + 2
+            selector = "[X]" if selected[i] else "[ ]"
+            if i == current_line:
+                stdscr.attron(curses.color_pair(1))
+                stdscr.addstr(line_position, 0, f"{selector} {file}")
+                stdscr.attroff(curses.color_pair(1))
+            else:
+                stdscr.addstr(line_position, 0, f"{selector} {file}")
+        stdscr.refresh()
+
+        # Keyboard handling
+        key = stdscr.getch()
+        # move up
+        if key == curses.KEY_UP:
+            current_line = max(0, current_line - 1)
+        # move down
+        elif key == curses.KEY_DOWN:
+            current_line = min(len(files) - 1, current_line + 1)
+        # select or deselect file using spacebar
+        elif key == ord(' '):
+            selected[current_line] = not selected[current_line]
+        # exit on enter key
+        elif key == ord('\n'):
+            break
+        
+    return [file for i, file in enumerate(files) if selected[i]]
 
 def main():
     while True:
@@ -79,11 +120,18 @@ def main():
     file_list = remove_files(list_files(dir))
     prompt_text = '\n```'
     total_token_count = 0
+    filenames = []
     for file in file_list:
-        file_text, token_count = process_filename_and_contents(file) 
+        file_text, filename, token_count = process_filename_and_contents(file) 
         total_token_count += token_count
         prompt_text += file_text
-    
+        filenames += filename 
+   
+    # Start the curses application
+    final_list = curses.wrapper(lambda stdscr: select_files(stdscr, file_list))
+
+    print(final_list)
+
     while True:
         try:
             shall_proceed = input(f'total token count: {total_token_count}\n do you wish to proceed? Y/N: ')
