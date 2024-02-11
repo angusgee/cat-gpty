@@ -3,6 +3,13 @@ import re
 import glob
 import pyperclip
 
+prompts = [
+    'Act as a senior software engineer performing a code review. Your task is to review the following coding project for potential bugs. The project files are named and delimited by backticks. Ask as many questions as you need to understand the project before starting.',
+    'Act as a senior security engineer performing a code review. Your task is to review the following coding project for security vulnerabilities and suggest ways to make the code more secure. The project files are named and delimited by backticks. Ask as many questions as you need to understand the project before starting.', 
+    'Act as a senior software engineer performing a code review. Your task is to review the following coding project for ways to make the code more effecitent in terms of memory and time complexity. The project files are named and delimited by backticks. Ask as many questions as you need to understand the project before starting.', 
+    'Act as a senior software engineer. Your task is to create documentation for the following project. The project files are named and delimited by backticks. You shall also review the code for readability and add any comments you think are necessary to make the code easier to understand. Ask as many questions as you need to understand the project before starting.' 
+]
+
 # list all filepaths in the current dir and subdirs
 # exclude pycache, node_modules, and .git folders
 def list_files(dir):
@@ -36,6 +43,13 @@ def count_tokens(text):
     tokens = re.findall(r'\b\w+\b|\S', text)
     return len(tokens)
 
+def process_filename_and_contents(file):
+    filename = file.split('/')[-1]
+    text_with_delimiters = add_delimiters(remove_blank_rows(read_file(file)))
+    token_count = count_tokens(text_with_delimiters)
+    print(f"count of tokens for {filename}: {token_count}")
+    file_text = f"\n<{filename}>:\n {text_with_delimiters}"
+    return file_text, token_count
 
 def get_user_input():
     return int(input("""
@@ -45,18 +59,11 @@ def get_user_input():
 2. Security vulnerability assessment
 3. Improvements to memory and time complexity
 4. Add comments and create documentation
-5. No prompt baby I'm raw dogging it
+5. No prompt I'm raw dogging it
 
 =========================
 
 Choose a prompt: """))
-
-prompts = [
-    'Act as a senior software engineer performing a code review. Your task is to review the following coding project for potential bugs. The project files are named and delimited by backticks. Ask as many questions as you need to understand the project before starting.',
-    'Act as a senior security engineer performing a code review. Your task is to review the following coding project for security vulnerabilities and suggest ways to make the code more secure. The project files are named and delimited by backticks. Ask as many questions as you need to understand the project before starting.', 
-    'Act as a senior software engineer performing a code review. Your task is to review the following coding project for ways to make the code more effecitent in terms of memory and time complexity. The project files are named and delimited by backticks. Ask as many questions as you need to understand the project before starting.', 
-    'Act as a senior software engineer. Your task is to create documentation for the following project. The project files are named and delimited by backticks. You shall also review the code for readability and add any comments you think are necessary to make the code easier to understand. Ask as many questions as you need to understand the project before starting.' 
-]
 
 def main():
     while True:
@@ -73,12 +80,8 @@ def main():
     prompt_text = '\n```'
     total_token_count = 0
     for file in file_list:
-        filename = file.split('/')[-1]
-        text_with_delimiters = add_delimiters(remove_blank_rows(read_file(file)))
-        token_count =  count_tokens(text_with_delimiters)
+        file_text, token_count = process_filename_and_contents(file) 
         total_token_count += token_count
-        print(f"count of tokens for {filename}: {token_count}")
-        file_text = f"\n<{filename}>:\n {text_with_delimiters}"
         prompt_text += file_text
     
     while True:
@@ -87,13 +90,10 @@ def main():
             if shall_proceed.upper() == 'Y':
                 break
             else:
-                # print('please select or deselect files')
                 break
         except ValueError: 
             print('please choose a valid character')
 
-    # print(f"{prompts[user_prompt - 1]} {prompt_text}")
-    
     # copy to clipboard
     pyperclip.copy(f"{prompts[user_prompt - 1]} {prompt_text}")
         
@@ -105,4 +105,3 @@ def main():
  
 if __name__ == '__main__':
     main()
-    
