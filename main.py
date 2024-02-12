@@ -61,10 +61,10 @@ Choose a prompt: """))
 def process_filename_and_contents(file):
     filename = file.split('/')[-1]
     text_with_delimiters = add_delimiters(remove_blank_rows(read_file(file)))
-    token_count = count_tokens(text_with_delimiters)
-    print(f"count of tokens for {filename}: {token_count}")
+    # token_count = count_tokens(text_with_delimiters)
+    # print(f"count of tokens for {filename}: {token_count}")
     file_text = f"\n<{filename}>:\n {text_with_delimiters}"
-    return file_text, filename, token_count
+    return file_text, filename
 
 def select_files(stdscr, files):
     # hide the cursor
@@ -115,7 +115,7 @@ def select_files(stdscr, files):
             break
         
     selected_files = [file for i, file in enumerate(files) if selected[i]]
-    return selected_files, total_token_count
+    return selected_files
 
 def main():
     while True:
@@ -130,44 +130,48 @@ def main():
     dir = os.getcwd()
     file_list = remove_files(list_files(dir))
 
-    # Start the curses application
-    final_list, total_token_count = curses.wrapper(lambda stdscr: select_files(stdscr, file_list))
+    # Start the curses application which calls select_files
+    final_list = curses.wrapper(lambda stdscr: select_files(stdscr, file_list))
 
     prompt_text = '\n```'
     filenames = []
     for file in final_list:
-        file_text, filename, token_count = process_filename_and_contents(file) 
-        total_token_count += token_count
+        file_text, filename = process_filename_and_contents(file) 
+        # total_token_count += token_count
         prompt_text += file_text
         filenames += filename 
    
     # print(final_list)
 
-    while True:
-        try:
-            shall_proceed = input(f'total token count: {total_token_count}\n do you wish to proceed? Y/N: ')
-            if shall_proceed.upper() == 'Y':
-                break
-            else:
-                break
-        except ValueError: 
-            print('please choose a valid character')
+    # while True:
+    #     try:
+    #         shall_proceed = input(f'total token count: {total_token_count}\n do you wish to proceed? Y/N: ')
+    #         if shall_proceed.upper() == 'Y':
+    #             break
+    #         else:
+    #             break
+    #     except ValueError: 
+    #         print('please choose a valid character')
+
+    final_text = f"{prompts[user_prompt - 1]} {prompt_text}"
+    final_token_count = count_tokens(final_text) 
+    print(f'\nFinal token count including pre-prompt: {final_token_count}')
 
     # copy to clipboard
     try:
-        pyperclip.copy(f"{prompts[user_prompt - 1]} {prompt_text}")
-        print('Prompt successfully copied to clipboard')
+        pyperclip.copy(final_text)
+        print('\nPrompt successfully copied to clipboard')
     except OSError as e:
-        print(f'error writing to clipboard: {e}')   
+        print(f'\nerror writing to clipboard: {e}')   
        
     # write to file
     try:    
         with open('prompt.txt', 'w', encoding='utf8') as f:
-            f.write(f'{prompts[user_prompt - 1]}\n{prompt_text}')
-            print('Prompt successfully written to file')
+            f.write(final_text)
+            print('\nPrompt successfully written to file')
             
     except OSError as e:
-        print(f'error saving to file: {e}')   
+        print(f'\nerror saving to file: {e}')   
  
  
 if __name__ == '__main__':
