@@ -55,21 +55,6 @@ def count_tokens(text):
     tokens = re.findall(r'\b\w+\b|\S', text)
     return len(tokens)
 
-def get_user_input():
-    return int(input("""
-=========================
-
-1. Error checking
-2. Security vulnerability assessment
-3. Improvements to memory and time complexity
-4. Add comments and create documentation
-5. Provide requirements for refactoring or additions to code
-6. Provide error message for debugging
-
-=========================
-
-Choose a prompt 1-6, or press any other key to continue without one: """))
-
 # delimit the contents in the format ```\n<filename.ext>:\n ... ````
 def process_filename_and_contents(file):
     filename = file.split('/')[-1]
@@ -90,9 +75,10 @@ def select_prompt_and_files(stdscr, files):
     # select an optional pre-prompt
     prompt_selected = False
     prompt_index = 0
+    exit_without_selection = False
     while not prompt_selected:
         stdscr.clear()
-        stdscr.addstr(0, 0, "Select a prompt:\n\n")
+        stdscr.addstr(0, 0, "Select a prompt, or press any key to continue without one:\n\n")
         for i, prompt in prompts.items():
             title = f'{i}. {prompts[i]['title']}'
             if i == prompt_index + 1:
@@ -110,9 +96,16 @@ def select_prompt_and_files(stdscr, files):
             prompt_index += 1
         elif key == ord('\n'):
             prompt_selected = True
-
-    user_prompt_index = prompt_index + 1
-    user_prompt = prompts[user_prompt_index]['body']
+        else:
+            # any other key
+            exit_without_selection = True
+            break
+        
+    if exit_without_selection:
+        user_prompt = ''
+    else:
+        user_prompt_index = prompt_index + 1
+        user_prompt = prompts[user_prompt_index]['body']
    
     # start the second screen logic
     # to start with all of the files selected, create a list of true values
