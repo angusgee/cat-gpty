@@ -2,7 +2,9 @@ import os
 import re
 import glob
 import curses
+import platform
 import pyperclip
+from datetime import date
 
 prompts = [
     'Act as a senior software engineer performing a code review. Your task is to review the following coding project for potential bugs. The project files are named and delimited by backticks. Ask as many questions as you need to understand the project before starting.',
@@ -58,23 +60,30 @@ def get_user_input():
 
 Choose a prompt: """))
 
+# delimit the contents in the format ```\n<filename.ext>:\n ... ````
 def process_filename_and_contents(file):
     filename = file.split('/')[-1]
     text_with_delimiters = add_delimiters(remove_blank_rows(read_file(file)))
-    # token_count = count_tokens(text_with_delimiters)
-    # print(f"count of tokens for {filename}: {token_count}")
     file_text = f"\n<{filename}>:\n {text_with_delimiters}"
     return file_text, filename
 
+
+# lets use the curses lib to handle dynamic file selection
 def select_files(stdscr, files):
     # hide the cursor
     curses.curs_set(0)  
+    
+    # create the colour pair for selected/not selected 
     curses.init_pair(1, curses.COLOR_BLACK, curses.COLOR_WHITE)
-    # create a list of false values the same length as the file list
-    selected = [False] * len(files)
+    
+    # to start with all of the files selected, create a list of true values
+    selected = [True] * len(files)
+    
+    total_token_count = 0
     current_line = 0
     token_counts = [count_tokens(add_delimiters(remove_blank_rows(read_file(file)))) for file in files]
-    total_token_count = 0
+    print(f'token count: token_counts')
+    print(type(token_counts))
 
     while True:
         stdscr.clear()
@@ -114,8 +123,7 @@ def select_files(stdscr, files):
         elif key == ord('\n'):
             break
         
-    selected_files = [file for i, file in enumerate(files) if selected[i]]
-    return selected_files
+    return [file for i, file in enumerate(files) if selected[i]]
 
 def main():
     while True:
@@ -137,22 +145,11 @@ def main():
     filenames = []
     for file in final_list:
         file_text, filename = process_filename_and_contents(file) 
-        # total_token_count += token_count
         prompt_text += file_text
         filenames += filename 
    
-    # print(final_list)
-
-    # while True:
-    #     try:
-    #         shall_proceed = input(f'total token count: {total_token_count}\n do you wish to proceed? Y/N: ')
-    #         if shall_proceed.upper() == 'Y':
-    #             break
-    #         else:
-    #             break
-    #     except ValueError: 
-    #         print('please choose a valid character')
-
+    # clear the terminal and print the final output and success messages
+    os.system('cls' if platform.system() == 'Windows' else 'clear')
     final_text = f"{prompts[user_prompt - 1]} {prompt_text}"
     final_token_count = count_tokens(final_text) 
     print(f'\nFinal token count including pre-prompt: {final_token_count}')
@@ -160,18 +157,19 @@ def main():
     # copy to clipboard
     try:
         pyperclip.copy(final_text)
-        print('\nPrompt successfully copied to clipboard')
+        print('Prompt successfully copied to clipboard')
     except OSError as e:
-        print(f'\nerror writing to clipboard: {e}')   
+        print(f'error writing to clipboard: {e}\n')   
        
     # write to file
-    try:    
-        with open('prompt.txt', 'w', encoding='utf8') as f:
+    try:   
+        today = date.today()
+        output_filename = f'prompt_{today}.txt'
+        with open(output_filename, 'w', encoding='utf8') as f:
             f.write(final_text)
-            print('\nPrompt successfully written to file')
-            
+            print('Prompt successfully written to file\n')
     except OSError as e:
-        print(f'\nerror saving to file: {e}')   
+        print(f'error saving to file: {e}\n')   
  
  
 if __name__ == '__main__':
