@@ -76,10 +76,11 @@ def select_files(stdscr, files):
 
     while True:
         stdscr.clear()
-        stdscr.addstr(0, 0, "Please select the files you wish to use: \n")
+        stdscr.addstr(0, 0, "===================================================\n")
+        stdscr.addstr(1, 0, "Please select the files you wish to use: \n\n")
         # Display the files and selection state
         for i, file in enumerate(files):
-            line_position = i + 2
+            line_position = i + 3
             selector = "[X]" if selected[i] else "[ ]"
             if i == current_line:
                 stdscr.attron(curses.color_pair(1))
@@ -87,6 +88,9 @@ def select_files(stdscr, files):
                 stdscr.attroff(curses.color_pair(1))
             else:
                 stdscr.addstr(line_position, 0, f"{selector} {file}")
+
+        stdscr.addstr((len(files) + 4), 0, "Press Enter when done\n")
+        stdscr.addstr((len(files) + 5), 0, "===================================================\n")
         stdscr.refresh()
 
         # Keyboard handling
@@ -144,13 +148,21 @@ def main():
             print('please choose a valid character')
 
     # copy to clipboard
-    pyperclip.copy(f"{prompts[user_prompt - 1]} {prompt_text}")
-        
+    try:
+        pyperclip.copy(f"{prompts[user_prompt - 1]} {prompt_text}")
+        print('Prompt successfully copied to clipboard')
+    except OSError as e:
+        print(f'error writing to clipboard: {e}')   
+       
+    # write to file
     try:    
         with open('prompt.txt', 'w', encoding='utf8') as f:
             f.write(f'{prompts[user_prompt - 1]}\n{prompt_text}')
+            print('Prompt successfully written to file')
+            
     except OSError as e:
         print(f'error saving to file: {e}')   
+ 
  
 if __name__ == '__main__':
     main()
