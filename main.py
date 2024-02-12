@@ -118,19 +118,20 @@ def main():
             print('please enter a number')
     dir = os.getcwd()
     file_list = remove_files(list_files(dir))
+
+    # Start the curses application
+    final_list = curses.wrapper(lambda stdscr: select_files(stdscr, file_list))
+
     prompt_text = '\n```'
     total_token_count = 0
     filenames = []
-    for file in file_list:
+    for file in final_list:
         file_text, filename, token_count = process_filename_and_contents(file) 
         total_token_count += token_count
         prompt_text += file_text
         filenames += filename 
    
-    # Start the curses application
-    final_list = curses.wrapper(lambda stdscr: select_files(stdscr, file_list))
-
-    print(final_list)
+    # print(final_list)
 
     while True:
         try:

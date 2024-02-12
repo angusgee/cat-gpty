@@ -1,4 +1,4 @@
-# CatGpty
+# Cat Gippity
 
 Cat Gippity is a Windows and Linux utility for improved proompting.
 
@@ -12,7 +12,7 @@ Also, you won't know you're going to exceed the token limit until you do.
 
 ## Solution
 
-CatGpty solves these issues for you.
+Cat Gippity solves these issues for you.
 
 Run the script from your project root folder and select the files to include.
 
