@@ -6,14 +6,21 @@ import platform
 import pyperclip
 from datetime import date
 
-prompts = [
-    'Act as a senior software engineer performing a code review. Your task is to review the following coding project for potential bugs. The project files are named and delimited by backticks. Ask as many questions as you need to understand the project before starting.',
-    'Act as a senior security engineer performing a code review. Your task is to review the following coding project for security vulnerabilities and suggest ways to make the code more secure. The project files are named and delimited by backticks. Ask as many questions as you need to understand the project before starting.', 
-    'Act as a senior software engineer performing a code review. Your task is to review the following coding project for ways to make the code more effecitent in terms of memory and time complexity. The project files are named and delimited by backticks. Ask as many questions as you need to understand the project before starting.', 
-    'Act as a senior software engineer. Your task is to create documentation for the following project. The project files are named and delimited by backticks. You shall also review the code for readability and add any comments you think are necessary to make the code easier to understand. Ask as many questions as you need to understand the project before starting.', 
-    'Act as a senior software developer and coding mentor. Your task is to refactor the code delimited by triple backticks according to the new requirements in triple quotes. Your output should only be the part of the code you are changing, plus an explanation.\n """PASTE_REQUIREMENTS_HERE"""',
-    'Act as a senior software developer and coding mentor. Your task is to correct the code delimited by backticks. The error messages are delimited by triple quotes. Your output should only be the part of the code you are changing, plus an explanation.\n """PASTE_ERROR_MESSAGES_HERE"""' 
-]
+prompts = {
+    1: {'title': 'Error checking', 
+        'body': 'Act as a senior software engineer performing a code review. Your task is to review the following coding project for potential bugs. The project files are named and delimited by backticks. Ask as many questions as you need to understand the project before starting.'},
+    2: {'title': 'Security vulnerability assessment', 
+        'body': 'Act as a senior security engineer performing a code review. Your task is to review the following coding project for security vulnerabilities and suggest ways to make the code more secure. The project files are named and delimited by backticks. Ask as many questions as you need to understand the project before starting.'},
+    3: {'title': 'Improvements to memory and time complexity', 
+        'body': 'Act as a senior software engineer performing a code review. Your task is to review the following coding project for ways to make the code more efficient in terms of memory and time complexity. The project files are named and delimited by backticks. Ask as many questions as you need to understand the project before starting.'},
+    4: {'title': 'Add comments and create documentation', 
+        'body': 'Act as a senior software engineer. Your task is to create documentation for the following project. The project files are named and delimited by backticks. You shall also review the code for readability and add any comments you think are necessary to make the code easier to understand. Ask as many questions as you need to understand the project before starting.'},
+    5: {'title': 'Provide requirements for refactoring or additions to code', 
+        'body': 'Act as a senior software developer and coding mentor. Your task is to refactor the code delimited by triple backticks according to the new requirements in triple quotes. Your output should only be the part of the code you are changing, plus an explanation.\n """PASTE_REQUIREMENTS_HERE"""'},
+    6: {'title': 'Provide error message for debugging', 
+        'body': 'Act as a senior software developer and coding mentor. Your task is to correct the code delimited by backticks. The error messages are delimited by triple quotes. Your output should only be the part of the code you are changing, plus an explanation.\n """PASTE_ERROR_MESSAGES_HERE"""'}
+}
+
 
 # list all filepaths in the current dir and subdirs
 # exclude pycache, node_modules, and .git folders
@@ -72,7 +79,7 @@ def process_filename_and_contents(file):
 
 
 # lets use the curses lib to handle dynamic file selection
-def select_files(stdscr, files):
+def select_prompt_and_files(stdscr, files):
     # hide the cursor
     curses.curs_set(0)  
     
@@ -157,23 +164,13 @@ def select_files(stdscr, files):
     return selected_files, user_prompt
 
 def main():
-    # while True:
-    #     try:
-    #         user_prompt = get_user_input()
-    #         if user_prompt in [1, 2, 3, 4, 5, 6]:
-    #             break
-    #         elif user_prompt == None:
-    #             print('continuing without prompt')
-    #             break
-    #     except ValueError:
-    #         print('please enter a number')
     
     # get the project files and remove unwanted ones like .git and pycache
     dir = os.getcwd()
     file_list = remove_files(list_files(dir))
 
-    # Start the curses application which calls select_files
-    final_list, user_prompt = curses.wrapper(lambda stdscr: select_files(stdscr, file_list))
+    # Start the curses application which calls select_prompt_and_files
+    final_list, user_prompt = curses.wrapper(lambda stdscr: select_prompt_and_files(stdscr, file_list))
 
     prompt_text = '\n```'
     filenames = []
