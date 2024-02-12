@@ -111,19 +111,17 @@ def select_prompt_and_files(stdscr, files):
     # to start with all of the files selected, create a list of true values
     selected = [True] * len(files)
     
-    total_token_count = 0
     current_line = 0
     token_counts = [count_tokens(add_delimiters(remove_blank_rows(read_file(file)))) for file in files]
-    print(f'token count: token_counts')
-    print(type(token_counts))
+    total_token_count = sum(token_counts) 
 
     while True:
         stdscr.clear()
         stdscr.addstr(0, 0, "===================================================\n")
-        stdscr.addstr(1, 0, f"Total Token Count: {total_token_count}\nPlease select the files you wish to use: \n\n")
+        stdscr.addstr(1, 0, "Please select/deselect the files you wish to use: \n\n")
         # Display the files and selection state
         for i, file in enumerate(files):
-            line_position = i + 4
+            line_position = i + 3 
             selector = "[X]" if selected[i] else "[ ]"
             if i == current_line:
                 stdscr.attron(curses.color_pair(1))
@@ -132,8 +130,9 @@ def select_prompt_and_files(stdscr, files):
             else:
                 stdscr.addstr(line_position, 0, f"{selector} {file} - Tokens: {token_counts[i]}")
 
-        stdscr.addstr((len(files) + 4), 0, "Press Enter when done\n")
-        stdscr.addstr((len(files) + 5), 0, "===================================================\n")
+        stdscr.addstr((len(files) + 4), 0, f"Total Token Count: {total_token_count}\nPlease select the files you wish to use: \n\n")
+        stdscr.addstr((len(files) + 5), 0, "Press Enter when done\n")
+        stdscr.addstr((len(files) + 6), 0, "===================================================\n")
         stdscr.refresh()
 
         # Keyboard handling
@@ -175,7 +174,7 @@ def main():
         filenames += filename 
    
     # clear the terminal and print the final output and success messages
-    os.system('cls' if platform.system() == 'Windows' else 'clear')
+    # os.system('cls' if platform.system() == 'Windows' else 'clear')
     final_text = f"{user_prompt} {prompt_text}"
     final_token_count = count_tokens(final_text) 
     print(f'\nFinal token count including pre-prompt: {final_token_count}')
