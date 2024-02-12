@@ -73,21 +73,23 @@ def select_files(stdscr, files):
     # create a list of false values the same length as the file list
     selected = [False] * len(files)
     current_line = 0
+    token_counts = [count_tokens(add_delimiters(remove_blank_rows(read_file(file)))) for file in files]
+    total_token_count = 0
 
     while True:
         stdscr.clear()
         stdscr.addstr(0, 0, "===================================================\n")
-        stdscr.addstr(1, 0, "Please select the files you wish to use: \n\n")
+        stdscr.addstr(1, 0, f"Total Token Count: {total_token_count}\nPlease select the files you wish to use: \n\n")
         # Display the files and selection state
         for i, file in enumerate(files):
-            line_position = i + 3
+            line_position = i + 4
             selector = "[X]" if selected[i] else "[ ]"
             if i == current_line:
                 stdscr.attron(curses.color_pair(1))
-                stdscr.addstr(line_position, 0, f"{selector} {file}")
+                stdscr.addstr(line_position, 0, f"{selector} {file} - Tokens: {token_counts[i]}")
                 stdscr.attroff(curses.color_pair(1))
             else:
-                stdscr.addstr(line_position, 0, f"{selector} {file}")
+                stdscr.addstr(line_position, 0, f"{selector} {file} - Tokens: {token_counts[i]}")
 
         stdscr.addstr((len(files) + 4), 0, "Press Enter when done\n")
         stdscr.addstr((len(files) + 5), 0, "===================================================\n")
@@ -104,11 +106,16 @@ def select_files(stdscr, files):
         # select or deselect file using spacebar
         elif key == ord(' '):
             selected[current_line] = not selected[current_line]
+            if selected[current_line]:
+                total_token_count += token_counts[current_line]
+            else: 
+                total_token_count -= token_counts[current_line]
         # exit on enter key
         elif key == ord('\n'):
             break
         
-    return [file for i, file in enumerate(files) if selected[i]]
+    selected_files = [file for i, file in enumerate(files) if selected[i]]
+    return selected_files, total_token_count
 
 def main():
     while True:
@@ -124,10 +131,9 @@ def main():
     file_list = remove_files(list_files(dir))
 
     # Start the curses application
-    final_list = curses.wrapper(lambda stdscr: select_files(stdscr, file_list))
+    final_list, total_token_count = curses.wrapper(lambda stdscr: select_files(stdscr, file_list))
 
     prompt_text = '\n```'
-    total_token_count = 0
     filenames = []
     for file in final_list:
         file_text, filename, token_count = process_filename_and_contents(file) 
