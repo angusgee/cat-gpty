@@ -10,7 +10,9 @@ prompts = [
     'Act as a senior software engineer performing a code review. Your task is to review the following coding project for potential bugs. The project files are named and delimited by backticks. Ask as many questions as you need to understand the project before starting.',
     'Act as a senior security engineer performing a code review. Your task is to review the following coding project for security vulnerabilities and suggest ways to make the code more secure. The project files are named and delimited by backticks. Ask as many questions as you need to understand the project before starting.', 
     'Act as a senior software engineer performing a code review. Your task is to review the following coding project for ways to make the code more effecitent in terms of memory and time complexity. The project files are named and delimited by backticks. Ask as many questions as you need to understand the project before starting.', 
-    'Act as a senior software engineer. Your task is to create documentation for the following project. The project files are named and delimited by backticks. You shall also review the code for readability and add any comments you think are necessary to make the code easier to understand. Ask as many questions as you need to understand the project before starting.' 
+    'Act as a senior software engineer. Your task is to create documentation for the following project. The project files are named and delimited by backticks. You shall also review the code for readability and add any comments you think are necessary to make the code easier to understand. Ask as many questions as you need to understand the project before starting.', 
+    'Act as a senior software developer and coding mentor. Your task is to refactor the code delimited by triple backticks according to the new requirements in triple quotes. Your output should only be the part of the code you are changing, plus an explanation.\n """PASTE_REQUIREMENTS_HERE"""',
+    'Act as a senior software developer and coding mentor. Your task is to correct the code delimited by backticks. The error messages are delimited by triple quotes. Your output should only be the part of the code you are changing, plus an explanation.\n """PASTE_ERROR_MESSAGES_HERE"""' 
 ]
 
 # list all filepaths in the current dir and subdirs
@@ -54,11 +56,12 @@ def get_user_input():
 2. Security vulnerability assessment
 3. Improvements to memory and time complexity
 4. Add comments and create documentation
-5. No prompt I'm raw dogging it
+5. Provide requirements for refactoring or additions to code
+6. Provide error message for debugging
 
 =========================
 
-Choose a prompt: """))
+Choose a prompt 1-6, or press any other key to continue without one: """))
 
 # delimit the contents in the format ```\n<filename.ext>:\n ... ````
 def process_filename_and_contents(file):
@@ -75,7 +78,34 @@ def select_files(stdscr, files):
     
     # create the colour pair for selected/not selected 
     curses.init_pair(1, curses.COLOR_BLACK, curses.COLOR_WHITE)
-    
+   
+    # start first screen logic
+    # select an optional pre-prompt
+    prompt_selected = False
+    prompt_index = 0
+    while not prompt_selected:
+        stdscr.clear()
+        stdscr.addstr(0, 0, "Select a prompt:\n\n")
+        for i, prompt in enumerate(prompts):
+            if i == prompt_index:
+                stdscr.attron(curses.color_pair(1))
+                stdscr.addstr(f"{i+1}. {prompt}\n")
+                stdscr.attroff(curses.color_pair(1))
+            else:
+                stdscr.addstr(f"{i+1}. {prompt}\n")
+        stdscr.refresh()
+
+        key = stdscr.getch()
+        if key == curses.KEY_UP and prompt_index > 0:
+            prompt_index -= 1
+        elif key == curses.KEY_DOWN and prompt_index < len(prompts) - 1:
+            prompt_index += 1
+        elif key == ord('\n'):
+            prompt_selected = True
+
+    user_prompt = prompt_index  
+   
+    # start the second screen logic
     # to start with all of the files selected, create a list of true values
     selected = [True] * len(files)
     
@@ -123,23 +153,27 @@ def select_files(stdscr, files):
         elif key == ord('\n'):
             break
         
-    return [file for i, file in enumerate(files) if selected[i]]
+    selected_files = [file for i, file in enumerate(files) if selected[i]]
+    return selected_files, user_prompt
 
 def main():
-    while True:
-        try:
-            user_prompt = get_user_input()
-            if user_prompt in [1, 2, 3, 4, 5]:
-                break
-            else:
-                print('please choose a valid option 1-5')
-        except ValueError:
-            print('please enter a number')
+    # while True:
+    #     try:
+    #         user_prompt = get_user_input()
+    #         if user_prompt in [1, 2, 3, 4, 5, 6]:
+    #             break
+    #         elif user_prompt == None:
+    #             print('continuing without prompt')
+    #             break
+    #     except ValueError:
+    #         print('please enter a number')
+    
+    # get the project files and remove unwanted ones like .git and pycache
     dir = os.getcwd()
     file_list = remove_files(list_files(dir))
 
     # Start the curses application which calls select_files
-    final_list = curses.wrapper(lambda stdscr: select_files(stdscr, file_list))
+    final_list, user_prompt = curses.wrapper(lambda stdscr: select_files(stdscr, file_list))
 
     prompt_text = '\n```'
     filenames = []
@@ -150,7 +184,7 @@ def main():
    
     # clear the terminal and print the final output and success messages
     os.system('cls' if platform.system() == 'Windows' else 'clear')
-    final_text = f"{prompts[user_prompt - 1]} {prompt_text}"
+    final_text = f"{user_prompt} {prompt_text}"
     final_token_count = count_tokens(final_text) 
     print(f'\nFinal token count including pre-prompt: {final_token_count}')
 

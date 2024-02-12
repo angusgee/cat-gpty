@@ -3,4 +3,4 @@ test.py
 .git*
 .gitignore
 input.py
-prompt.txt
+prompt*.txt
