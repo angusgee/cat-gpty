@@ -93,13 +93,14 @@ def select_prompt_and_files(stdscr, files):
     while not prompt_selected:
         stdscr.clear()
         stdscr.addstr(0, 0, "Select a prompt:\n\n")
-        for i, prompt in enumerate(prompts):
-            if i == prompt_index:
+        for i, prompt in prompts.items():
+            title = f'{i}. {prompt['title']}'
+            if i == prompt_index + 1:
                 stdscr.attron(curses.color_pair(1))
-                stdscr.addstr(f"{i+1}. {prompt}\n")
+                stdscr.addstr(title + '\n')
                 stdscr.attroff(curses.color_pair(1))
             else:
-                stdscr.addstr(f"{i+1}. {prompt}\n")
+                stdscr.addstr(title + '\n')
         stdscr.refresh()
 
         key = stdscr.getch()
@@ -110,7 +111,7 @@ def select_prompt_and_files(stdscr, files):
         elif key == ord('\n'):
             prompt_selected = True
 
-    user_prompt = prompt_index  
+    user_prompt = prompt_index + 1
    
     # start the second screen logic
     # to start with all of the files selected, create a list of true values
