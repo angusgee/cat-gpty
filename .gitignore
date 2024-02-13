@@ -4,3 +4,7 @@ test.py
 .gitignore
 input.py
 prompt*.txt
+build
+main.spec
+dist
+*.spec

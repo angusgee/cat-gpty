@@ -80,7 +80,7 @@ def select_prompt_and_files(stdscr, files):
         stdscr.clear()
         stdscr.addstr(0, 0, "Select a prompt, or press any key to continue without one:\n\n")
         for i, prompt in prompts.items():
-            title = f'{i}. {prompts[i]['title']}'
+            title = f"{i}. {prompts[i]['title']}"
             if i == prompt_index + 1:
                 stdscr.attron(curses.color_pair(1))
                 stdscr.addstr(title + '\n')
