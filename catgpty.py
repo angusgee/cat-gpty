@@ -8,17 +8,17 @@ from datetime import date
 
 prompts = {
     1: {'title': 'Error checking', 
-        'body': 'Act as a senior software engineer performing a code review. Your task is to review the following coding project for potential bugs. The project files are named and delimited by backticks. Ask as many questions as you need to understand the project before starting.'},
+        'body': 'Act as a senior software engineer performing a code review. Your task is to review the following coding project for potential bugs. The project files are named and delimited by backticks. Ask  questions before starting if you need to understand the project. Your output should be a list of suggested improvements, with brief explanations, and the parts of the code you are changing'},
     2: {'title': 'Security vulnerability assessment', 
-        'body': 'Act as a senior security engineer performing a code review. Your task is to review the following coding project for security vulnerabilities and suggest ways to make the code more secure. The project files are named and delimited by backticks. Ask as many questions as you need to understand the project before starting.'},
+        'body': 'Act as a senior security engineer performing a code review. Your task is to review the following coding project for security vulnerabilities and suggest ways to make the code more secure. The project files are named and delimited by backticks. Ask  questions before starting if you need to understand the project. Your output should be a list of suggested improvements, with brief explanations, and any parts of the code you are changing'},
     3: {'title': 'Improvements to memory and time complexity', 
-        'body': 'Act as a senior software engineer performing a code review. Your task is to review the following coding project for ways to make the code more efficient in terms of memory and time complexity. The project files are named and delimited by backticks. Ask as many questions as you need to understand the project before starting.'},
+        'body': 'Act as a senior software engineer performing a code review. Your task is to review the following coding project for ways to make the code more efficient in terms of memory and time complexity. The project files are named and delimited by backticks. Ask  questions before starting if you need to understand the project. Your output should be a list of suggested improvements, with brief explanations, and any parts of the code you are changing'},
     4: {'title': 'Add comments and create documentation', 
-        'body': 'Act as a senior software engineer. Your task is to create documentation for the following project. The project files are named and delimited by backticks. You shall also review the code for readability and add any comments you think are necessary to make the code easier to understand. Ask as many questions as you need to understand the project before starting.'},
+        'body': 'Act as a senior software engineer. Your task is to create documentation for the following project. The project files are named and delimited by backticks. You shall also review the code for readability and add any comments you think are necessary to make the code easier to understand. Ask questions before starting if you need to understand the project. Your output should be a document in markdown format, plus any additions to the code you deem necessary'},
     5: {'title': 'Provide requirements for refactoring or additions to code', 
-        'body': 'Act as a senior software developer and coding mentor. Your task is to refactor the code delimited by triple backticks according to the new requirements in triple quotes. Your output should only be the part of the code you are changing, plus an explanation.\n """PASTE_REQUIREMENTS_HERE"""'},
+        'body': 'Act as a senior software developer and coding mentor. Your task is to refactor the code delimited by triple backticks according to the new requirements in triple quotes. Your output should only be the part of the code you are changing, plus an explanation.\n"""\nPASTE_REQUIREMENTS_HERE\n"""'},
     6: {'title': 'Provide error message for debugging', 
-        'body': 'Act as a senior software developer and coding mentor. Your task is to correct the code delimited by backticks. The error messages are delimited by triple quotes. Your output should only be the part of the code you are changing, plus an explanation.\n """PASTE_ERROR_MESSAGES_HERE"""'}
+        'body': 'Act as a senior software developer and coding mentor. Your task is to correct the code delimited by backticks. The error messages are delimited by triple quotes. Your output should only be the part of the code you are changing, plus an explanation.\n """\nPASTE_ERROR_MESSAGES_HERE\n"""'}
 }
 
 
@@ -173,8 +173,7 @@ def main():
         prompt_text += file_text
         filenames += filename 
    
-    # clear the terminal and print the final output and success messages
-    # os.system('cls' if platform.system() == 'Windows' else 'clear')
+    # print the final output and success messages
     final_text = f"{user_prompt} {prompt_text}"
     final_token_count = count_tokens(final_text) 
     print(f'\nFinal token count including pre-prompt: {final_token_count}')
