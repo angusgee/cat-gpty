@@ -75,31 +75,39 @@ def select_prompt_and_files(stdscr, files):
     prompt_selected = False
     prompt_index = 0
     exit_without_selection = False
-    while not prompt_selected:
-        stdscr.clear()
-        stdscr.addstr(0, 0, "Select a prompt, or press any key to continue without one:\n\n")
-        for i, prompt in prompts.items():
-            title = f"{i}. {prompts[i]['title']}"
-            if i == prompt_index + 1:
-                stdscr.attron(curses.color_pair(1))
-                stdscr.addstr(title + '\n')
-                stdscr.attroff(curses.color_pair(1))
-            else:
-                stdscr.addstr(title + '\n')
-        stdscr.refresh()
+    try:
+        while not prompt_selected:
+            stdscr.clear()
+            stdscr.addstr(0, 0, "Select a prompt, or press any key to continue without one:\n\n")
+            for i, prompt in prompts.items():
+                title = f"{i}. {prompts[i]['title']}"
+                if i == prompt_index + 1:
+                    stdscr.attron(curses.color_pair(1))
+                    stdscr.addstr(title + '\n')
+                    stdscr.attroff(curses.color_pair(1))
+                else:
+                    stdscr.addstr(title + '\n')
+            stdscr.refresh()
 
-        key = stdscr.getch()
-        if key == curses.KEY_UP and prompt_index > 0:
-            prompt_index -= 1
-        elif key == curses.KEY_DOWN and prompt_index < len(prompts) - 1:
-            prompt_index += 1
-        elif key == ord('\n'):
-            prompt_selected = True
-        else:
-            # any other key
-            exit_without_selection = True
-            break
-        
+            key = stdscr.getch()
+            if key == curses.KEY_UP and prompt_index > 0:
+                prompt_index -= 1
+            elif key == curses.KEY_DOWN and prompt_index < len(prompts) - 1:
+                prompt_index += 1
+            elif key == ord('\n'):
+                prompt_selected = True
+            else:
+                # any other key
+                exit_without_selection = True
+                break
+    
+    except curses.error:
+        stdscr.clear()
+        stdscr.addstr(0, 0, 'Error: Terminal size is too small. Please resize your terminal windowm and try again.')
+        stdscr.refresh()
+        stdscr.getch()
+        return [], '' 
+            
     if exit_without_selection:
         user_prompt = ''
     else:
@@ -114,45 +122,52 @@ def select_prompt_and_files(stdscr, files):
     token_counts = [count_tokens(add_delimiters(remove_blank_rows(read_file(file)))) for file in files]
     total_token_count = sum(token_counts) 
 
-    while True:
+    try:
+        while True:
+            stdscr.clear()
+            stdscr.addstr(0, 0, "===================================================\n")
+            stdscr.addstr(1, 0, "Please select/deselect the files you wish to use: \n\n")
+            # Display the files and selection state
+            for i, file in enumerate(files):
+                line_position = i + 3 
+                selector = "[X]" if selected[i] else "[ ]"
+                if i == current_line:
+                    stdscr.attron(curses.color_pair(1))
+                    stdscr.addstr(line_position, 0, f"{selector} {file} - Tokens: {token_counts[i]}")
+                    stdscr.attroff(curses.color_pair(1))
+                else:
+                    stdscr.addstr(line_position, 0, f"{selector} {file} - Tokens: {token_counts[i]}")
+
+            stdscr.addstr((len(files) + 4), 0, f"Total Token Count: {total_token_count}\nPlease select the files you wish to use: \n\n")
+            stdscr.addstr((len(files) + 5), 0, "Press Enter when done\n")
+            stdscr.addstr((len(files) + 6), 0, "===================================================\n")
+            stdscr.refresh()
+
+            # Keyboard handling
+            key = stdscr.getch()
+            # move up
+            if key == curses.KEY_UP:
+                current_line = max(0, current_line - 1)
+            # move down
+            elif key == curses.KEY_DOWN:
+                current_line = min(len(files) - 1, current_line + 1)
+            # select or deselect file using spacebar
+            elif key == ord(' '):
+                selected[current_line] = not selected[current_line]
+                if selected[current_line]:
+                    total_token_count += token_counts[current_line]
+                else: 
+                    total_token_count -= token_counts[current_line]
+            # exit on enter key
+            elif key == ord('\n'):
+                break
+    except curses.error:
         stdscr.clear()
-        stdscr.addstr(0, 0, "===================================================\n")
-        stdscr.addstr(1, 0, "Please select/deselect the files you wish to use: \n\n")
-        # Display the files and selection state
-        for i, file in enumerate(files):
-            line_position = i + 3 
-            selector = "[X]" if selected[i] else "[ ]"
-            if i == current_line:
-                stdscr.attron(curses.color_pair(1))
-                stdscr.addstr(line_position, 0, f"{selector} {file} - Tokens: {token_counts[i]}")
-                stdscr.attroff(curses.color_pair(1))
-            else:
-                stdscr.addstr(line_position, 0, f"{selector} {file} - Tokens: {token_counts[i]}")
-
-        stdscr.addstr((len(files) + 4), 0, f"Total Token Count: {total_token_count}\nPlease select the files you wish to use: \n\n")
-        stdscr.addstr((len(files) + 5), 0, "Press Enter when done\n")
-        stdscr.addstr((len(files) + 6), 0, "===================================================\n")
+        stdscr.addstr(0, 0, 'Error: Terminal size is too small. Please resize your terminal windowm and try again.')
         stdscr.refresh()
-
-        # Keyboard handling
-        key = stdscr.getch()
-        # move up
-        if key == curses.KEY_UP:
-            current_line = max(0, current_line - 1)
-        # move down
-        elif key == curses.KEY_DOWN:
-            current_line = min(len(files) - 1, current_line + 1)
-        # select or deselect file using spacebar
-        elif key == ord(' '):
-            selected[current_line] = not selected[current_line]
-            if selected[current_line]:
-                total_token_count += token_counts[current_line]
-            else: 
-                total_token_count -= token_counts[current_line]
-        # exit on enter key
-        elif key == ord('\n'):
-            break
-        
+        stdscr.getch()
+        return [], '' 
+   
     selected_files = [file for i, file in enumerate(files) if selected[i]]
     return selected_files, user_prompt
 
