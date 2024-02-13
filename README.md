@@ -8,30 +8,21 @@ However, copying all your project files' contents, delimiting manually, and past
 
 ## Solution
 
-Cat Gippity solves these issues for you.
-
-Run the script from your project root folder and select the files to include. The token count is dynamically updated.
+⚡ Cat Gippity solves these issues for you ⚡
 
 Run the script from your project folder and choose to add on a pre-proompt:
 
 ![Cat Gippity first screen - choose a prompt](./assets/cat-gpty-choose-prompt.png)
 
-- Error checking
-- Security vulnerability assessment
-- Improve memory and time complexity
-- Add comments and create documentation
-- Add requirements to your project e.g. new component
-- Help to resolve error messages
-
-Select the files you want to include in the message.
+Select the files you want to include:
 
 ![Cat Gippity second screen - choose files](./assets/cat-gpty.png)
 
-The contents of your project are named, delimited with tripe backticks and concatenated together, then exported to a file and copied to your clipboard.
+The contents of your project files are individually, delimited and concatenated together, then copied to your clipboard and exported to a file.
 
-You get the optimum context from your project with only a couple of key presses.
+You get the optimum context from your project with only a couple of key presses. 🚀🚀
 
-Pro tip: iterate! Checking again only takes a few more seconds and helps prevent innacurate results. Why not have it review your code for bugs, then check it again for vulnerabilities?
+💡 Pro tip: iterate! Checking again only takes a few more seconds and helps prevent innacurate results. Why not have it review your code for bugs, then check it again for vulnerabilities?
 
 ## Getting started
 
