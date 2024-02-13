@@ -40,7 +40,7 @@ def remove_files(files):
         '.pdf', '.doc', '.docx', '.ppt', '.pptx', '.xls', '.xlsx',
         '.rar', '.tar', '.gz', '.7z',
         '.o', '.a', '.dll', '.so', '.dylib', '.db', '.sqlite',
-        '.log', '.lock', '.bin'
+        '.log', '.lock', '.bin', '.pyc', '.toc', '.pkg', '.pyz', '.zip', 
     ]
     return [file for file in files if not any(file.endswith(ext) for ext in excluded_extensions)]
 
