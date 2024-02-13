@@ -10,9 +10,11 @@ However, copying all your project files' contents, delimiting manually, and past
 
 Cat Gippity solves these issues for you.
 
-Run the script from your project root folder and select the files to include.
+Run the script from your project root folder and select the files to include. The token count is dynamically updated.
 
-Choose to add on a pre-proompt:
+Run the script from your project folder and choose to add on a pre-proompt:
+
+![Cat Gippity first screen - choose a prompt](./cat-gpty-choose-prompt.png)
 
 - Error checking
 - Security vulnerability assessment
@@ -21,11 +23,15 @@ Choose to add on a pre-proompt:
 - Add requirements to your project e.g. new component
 - Help to resolve error messages
 
-The contents of your project are named and concatenated together, exported to a file and copied to your clipboard.
+Select the files you want to include in the message.
 
-You get the entire context of your project with only a couple of key presses, and can easily exclude irrelevant files.
+![Cat Gippity second screen - choose files](./cat-gpty.png)
 
-Pro tip: iterate! Asking it to check again only takes a few more seconds and mitigates against innacurate results. Why not have it review your code for bugs, then check again for vulnerabilities?
+The contents of your project are named, delimited with tripe backticks and concatenated together, then exported to a file and copied to your clipboard.
+
+You get the optimum context from your project with only a couple of key presses.
+
+Pro tip: iterate! Checking again only takes a few more seconds and helps prevent innacurate results. Why not have it review your code for bugs, then check it again for vulnerabilities?
 
 ## Getting started
 
