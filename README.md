@@ -1,6 +1,6 @@
 # Cat Gippity
 
-Cat Gippity is a Windows and Linux utility for improved proompting.
+Cat Gippity is a Linux utility for improved proompting.
 
 For optimum results from AI, it's best to give the model the entire context of your project, and use delimiters to help it parse the content.
 
