@@ -14,7 +14,7 @@ Run the script from your project root folder and select the files to include. Th
 
 Run the script from your project folder and choose to add on a pre-proompt:
 
-![Cat Gippity first screen - choose a prompt](./cat-gpty-choose-prompt.png)
+![Cat Gippity first screen - choose a prompt](./assets/cat-gpty-choose-prompt.png)
 
 - Error checking
 - Security vulnerability assessment
@@ -25,7 +25,7 @@ Run the script from your project folder and choose to add on a pre-proompt:
 
 Select the files you want to include in the message.
 
-![Cat Gippity second screen - choose files](./cat-gpty.png)
+![Cat Gippity second screen - choose files](./assets/cat-gpty.png)
 
 The contents of your project are named, delimited with tripe backticks and concatenated together, then exported to a file and copied to your clipboard.
 
