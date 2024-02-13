@@ -18,9 +18,15 @@ Select the files you want to include:
 
 ![Cat Gippity second screen - choose files](./assets/cat-gpty.png)
 
-The contents of your project files are individually, delimited and concatenated together, then copied to your clipboard and exported to a file.
+The contents of your project files are individually, delimited and concatenated together, then copied to your clipboard.
 
 You get the optimum context from your project with only a couple of key presses. 🚀🚀
+
+Remember to paste in your requirements or error messages if you chose 5. or 6.
+
+![Chat GPT window with requirements placeholder text](./assets/chatgpt-with-placeholder.png)
+
+![Chat GPT window with finished proompt](./assets/chatgpt-with-error.png)
 
 💡 Pro tip: iterate! Checking again only takes a few more seconds and helps prevent innacurate results. Why not have it review your code for bugs, then check it again for vulnerabilities?
 
