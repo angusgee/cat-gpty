@@ -2,7 +2,6 @@ import os
 import re
 import glob
 import curses
-import platform
 import pyperclip
 from datetime import date
 
