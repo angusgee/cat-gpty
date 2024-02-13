@@ -33,8 +33,16 @@ def list_files(dir):
  
 # exclude file if extension is in list
 def remove_files(files):
-    extensions = ['.git', '.gitignore', '.env', '.exe','.jpeg', '.jpg', '.png']
-    return [file for file in files if not any(file.endswith(ext) for ext in extensions)]
+    excluded_extensions = [
+        '.git', '.gitignore', '.env', '.exe', 
+        '.jpeg', '.jpg', '.png', '.gif', '.ico', '.svg', '.bmp', '.tiff', '.webp',
+        '.mp3', '.wav', '.mp4', '.avi', '.mov', '.flv',
+        '.pdf', '.doc', '.docx', '.ppt', '.pptx', '.xls', '.xlsx',
+        '.rar', '.tar', '.gz', '.7z',
+        '.o', '.a', '.dll', '.so', '.dylib', '.db', '.sqlite',
+        '.log', '.lock', '.bin'
+    ]
+    return [file for file in files if not any(file.endswith(ext) for ext in excluded_extensions)]
 
 def read_file(file_path):
     try:
