@@ -2,9 +2,9 @@
 
 Cat Gippity is a Linux utility for improved prompting.
 
-For optimum results from AI, it's best to give the model the entire context of your project, and use delimiters to help it parse the content. You also want to use very clear proompts to explicitly instruct the model to do your bidding.
+For optimum results from AI, it's best to give the model as much relevant context as possible, and use delimiters to help it parse the content. You also want to use very clear proompts to explicitly instruct the model to do your bidding.
 
-However, copying all your project files' contents, delimiting manually, and pasting into ChatGPT or a similar API is time consuming. Also, you won't know you're going to exceed the token limit until you do.
+However, copying all your project files' contents, naming them, and delimiting them manually, is time consuming. Also, you won't know you're going to exceed the token limit until you do.
 
 ## Solution
 
@@ -12,23 +12,31 @@ However, copying all your project files' contents, delimiting manually, and past
 
 Run the script from your project folder and choose to add on a pre-proompt:
 
-![Cat Gippity first screen - choose a prompt](./assets/cat-gpty-choose-prompt.png)
+<p align="center">
+  <img src="./cat-gpty-choose-prompt.png" alt="Cat Gippity first screen - choose a prompt" title="Cat Gippity first screen - choose a prompt">
+</p>
 
 Select the files you want to include:
 
-![Cat Gippity second screen - choose files](./assets/cat-gpty.png)
+<p align="center">
+  <img src="./cat-gpty-choose-files.png" alt="Cat Gippity second screen - choose files" title="Cat Gippity second screen - choose files">
+</p>
 
-The contents of your project files are individually, delimited and concatenated together, then copied to your clipboard.
+The contents of your project files are individually named, delimited, and concatenated together, then copied to your clipboard.
 
 You get the optimum context from your project with only a couple of key presses. 🚀🚀
 
 Remember to paste in your requirements or error messages if you chose 5. or 6.
 
-![Chat GPT window with requirements placeholder text](./assets/chatgpt-with-placeholder.png)
+<p align="center">
+<img src="./assets/chatgpt-with-placeholder.png" alt="ChatGPT window with placeholder text showing" title="ChatGPT window with placeholder text showing">
+</p>
 
-![Chat GPT window with finished proompt](./assets/chatgpt-with-error.png)
+<p align="center">
+  <img src="./assets/chatgpt-with-error.png" alt="ChatGPT window with error message pasted into prompt" title="ChatGPT window with error message pasted into prompt">
+</p>
 
-💡 Pro tip: iterate! Checking again only takes a few more seconds and helps prevent innacurate results. Why not have it review your code for bugs, then check it again for vulnerabilities?
+💡 Pro tip: iterate! Checking again only takes a few more seconds and helps prevent innacurate results. Why not have the AI review your code for bugs, then check it again for vulnerabilities?
 
 ## Getting started
 
