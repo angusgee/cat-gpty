@@ -23,7 +23,7 @@ Run the script from your project folder and choose to add on a pre-proompt:
 Select the files you want to include. The token count is dynamically updated:
 
 <p align="center">
-  <img src="./assets/cat-gpty.png" alt="Cat Gippity second screen - choose files" title="Cat Gippity second screen - choose files">
+  <img src="./assets/cat-gpty-choose-files.png" alt="Cat Gippity second screen - choose files" title="Cat Gippity second screen - choose files">
 </p>
 
 The contents of your project files are individually named, delimited, and concatenated together, then copied to your clipboard.
