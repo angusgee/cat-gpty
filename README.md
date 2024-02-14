@@ -33,7 +33,7 @@ You get the optimum context from your project with only a couple of key presses.
 Remember to paste in your requirements or error messages if you chose 5. or 6.
 
 <p align="center">
-<img src="./assets/chatgpt-with-placeholder.png" alt="ChatGPT window with placeholder text showing" title="ChatGPT window with placeholder text showing">
+<img src="./assets/chatgpt-placeholder.png" alt="ChatGPT window with placeholder text showing" title="ChatGPT window with placeholder text showing">
 </p>
 
 <p align="center">
