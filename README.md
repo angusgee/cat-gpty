@@ -20,7 +20,7 @@ Run the script from your project folder and choose to add on a pre-proompt:
   <img src="./assets/cat-gpty-choose-prompt.png" alt="Cat Gippity first screen - choose a prompt" title="Cat Gippity first screen - choose a prompt">
 </p>
 
-Select the files you want to include:
+Select the files you want to include. The token count is dynamically updated:
 
 <p align="center">
   <img src="./assets/cat-gpty.png" alt="Cat Gippity second screen - choose files" title="Cat Gippity second screen - choose files">
