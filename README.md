@@ -13,13 +13,13 @@ However, copying all your project files' contents, naming them, and delimiting t
 Run the script from your project folder and choose to add on a pre-proompt:
 
 <p align="center">
-  <img src="./cat-gpty-choose-prompt.png" alt="Cat Gippity first screen - choose a prompt" title="Cat Gippity first screen - choose a prompt">
+  <img src="./assets/cat-gpty-choose-prompt.png" alt="Cat Gippity first screen - choose a prompt" title="Cat Gippity first screen - choose a prompt">
 </p>
 
 Select the files you want to include:
 
 <p align="center">
-  <img src="./cat-gpty-choose-files.png" alt="Cat Gippity second screen - choose files" title="Cat Gippity second screen - choose files">
+  <img src="./assets/cat-gpty-choose-files.png" alt="Cat Gippity second screen - choose files" title="Cat Gippity second screen - choose files">
 </p>
 
 The contents of your project files are individually named, delimited, and concatenated together, then copied to your clipboard.
