@@ -7,7 +7,7 @@ For optimum results from AI, it's best to give the model as much relevant contex
 However, copying all your project files' contents, naming them, and delimiting them manually, is time consuming. Also, you won't know you're going to exceed the token limit until you do:
 
 <p align="center">
-  <img src="./assets/chatgpt-token-error.png" alt="ChatGPT exceeded token limit error message" title="ChatGPT exceeded token limit error message">
+  <img src="./assets/chatgpt-token-error.png" alt="ChatGPT exceeded token limit error message" title="ChatGPT exceeded token limit error message" width="50%">
 </p>
 
 ## ⚡ Solution ⚡
