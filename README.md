@@ -4,15 +4,15 @@ Cat Gippity is a Linux utility for improved prompting.
 
 For optimum results from AI, it's best to give the model as much relevant context as possible, and use delimiters to help it parse the content. You also want to use very clear proompts to explicitly instruct the model to do your bidding.
 
-However, copying all your project files' contents, naming them, and delimiting them manually, is time consuming. Also, you won't know you're going to exceed the token limit until you do.
+However, copying all your project files' contents, naming them, and delimiting them manually, is time consuming. Also, you won't know you're going to exceed the token limit until you do:
 
 <p align="center">
-  <img src="./assets/ChatGPT-error.png" alt="ChatGPT exceeded token limit error message" title="ChatGPT exceeded token limit error message">
+  <img src="./assets/chatgpt-token-error.png" alt="ChatGPT exceeded token limit error message" title="ChatGPT exceeded token limit error message">
 </p>
 
-## Solution
+## ⚡ Solution ⚡
 
-⚡ Cat Gippity solves these issues for you ⚡
+Cat Gippity solves these issues for you! 💪🏽
 
 Run the script from your project folder and choose to add on a pre-proompt:
 
@@ -30,7 +30,7 @@ The contents of your project files are individually named, delimited, and concat
 
 You get the optimum context from your project with only a couple of key presses. 🚀🚀
 
-Remember to paste in your requirements or error messages if you chose 5. or 6.
+Remember to paste in your requirements or error messages if you chose 5. or 6:
 
 <p align="center">
 <img src="./assets/chatgpt-placeholder.png" alt="ChatGPT window with placeholder text showing" title="ChatGPT window with placeholder text showing">
@@ -40,7 +40,9 @@ Remember to paste in your requirements or error messages if you chose 5. or 6.
   <img src="./assets/chatgpt-with-error.png" alt="ChatGPT window with error message pasted into prompt" title="ChatGPT window with error message pasted into prompt">
 </p>
 
-💡 Pro tip: iterate! Checking again only takes a few more seconds and helps prevent innacurate results. Why not have the AI review your code for bugs, then check it again for vulnerabilities?
+💡 Pro tip: iterate! Checking again only takes a few more seconds and helps prevent innacurate results.
+
+Why not have the AI review your code for bugs, then check it again for vulnerabilities?
 
 ## Getting started
 
