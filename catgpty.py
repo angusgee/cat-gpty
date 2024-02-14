@@ -42,7 +42,7 @@ def remove_files(files):
         '.o', '.a', '.dll', '.so', '.dylib', '.db', '.sqlite',
         '.log', '.lock', '.bin', '.pyc', '.toc', '.pkg', '.pyz', '.zip', '.spec'
     ]
-    return [file for file in files if not any(file.endswith(ext) for ext in excluded_extensions)]
+    return [file for file in files if '.' in file.split('/')[-1] and not any(file.endswith(ext) for ext in excluded_extensions)]
 
 def read_file(file_path):
     try:
