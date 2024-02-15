@@ -2,7 +2,7 @@
 
 Cat Gippity is a Linux utility for improved prompting.
 
-For optimum results from AI, it's best to give the model as much relevant context as possible, and use delimiters to help it parse the content. You also want to use very clear proompts to explicitly instruct the model to do your bidding.
+For optimum results from AI models like ChatGPT, it's best to give the model as much relevant context as possible, and use delimiters to help it understand the content. You also want to use very clear proompts to explicitly instruct the model to do your bidding.
 
 However, copying all your project files' contents, naming them, and delimiting them manually, is time consuming. Also, you won't know you're going to exceed the token limit until you do:
 
