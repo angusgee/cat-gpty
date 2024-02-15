@@ -6,3 +6,4 @@ build
 main.spec
 *.spec
 css
+build
