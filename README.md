@@ -40,9 +40,7 @@ Remember to paste in your requirements or error messages if you chose 5. or 6:
   <img src="./assets/chatgpt-with-error.png" alt="ChatGPT window with error message pasted into prompt" title="ChatGPT window with error message pasted into prompt">
 </p>
 
-💡 Pro tip: iterate! Checking again only takes a few more seconds and helps prevent innacurate results.
-
-Why not have the AI review your code for bugs, then check it again for vulnerabilities?
+💡 Pro tip: iterate! Checking again only takes a few more seconds. Why not have the AI review your code for bugs, then check it again for vulnerabilities?
 
 ## Getting started
 
