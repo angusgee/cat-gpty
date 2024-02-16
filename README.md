@@ -4,8 +4,8 @@ Turbocharge your software development workflows by leveraging the power of AI.
 
 When seeking coding help from AI models like GPT-4, you want to:
 
-1. Give the model as much _relevant_ context as possible.
-2. Use delimiters to help it understand the content.
+1. Give the model as much _relevant_ context as possible without exceeding the token limit.
+2. Name your files and use delimiters to help it understand the content.
 3. Explicitly instruct the model with clear and unambiguous prompts.
 
 However, copying your project files, naming them, and delimiting them manually, is time consuming.
