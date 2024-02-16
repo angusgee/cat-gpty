@@ -44,4 +44,26 @@ Remember to paste in your requirements or error messages if you chose 5. or 6:
 
 ## Getting started
 
-tbc
+1. Start by running this command to install the script using curl:
+
+```bash
+curl -L "https://github.com/angusgee/cat-gpty/releases/tag/v0.1.0-alpha" -o /tmp/catgpty
+```
+
+2. Next, move the program into your /usr/local/bin directory - or anywhere else you please:
+
+```bash
+sudo mv /tmp/catgpty /usr/local/bin/catgpty
+```
+
+3. Finally, give the script executable permissions:
+
+```bash
+sudo chmod +x /usr/local/bin/catgpty
+```
+
+Now you can run Chat Gippity from any folder:
+
+```bash
+catgpty
+```
