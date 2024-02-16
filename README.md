@@ -18,9 +18,9 @@ Also, you won't know you're going to exceed the token limit until you do:
 
 ## ⚡ The Solution ⚡
 
-Cat Gippity solves these issues for you! 🔥🔥
+Cat Gippity solves these issues for you.
 
-Run the script from your project folder and choose to add on a pre-proompt:
+Run the script from your project folder and choose to add on a pre-prompt:
 
 <p align="center">
   <img src="./assets/cat-gpty-choose-prompt.png" alt="Cat Gippity first screen - choose a prompt" title="Cat Gippity first screen - choose a prompt">
@@ -34,7 +34,7 @@ Select the files you want to include. The token count is dynamically updated:
 
 The contents of your project files are individually named, delimited, and concatenated together, then copied to your clipboard.
 
-You get the optimum context from your project with only a couple of key presses. 🚀🚀
+You get the optimum context from your project with only a few key presses. 🚀🚀
 
 Remember to paste in your requirements or error messages if you chose 5. or 6:
 
@@ -46,11 +46,11 @@ Remember to paste in your requirements or error messages if you chose 5. or 6:
   <img src="./assets/chatgpt-with-error.png" alt="ChatGPT window with error message pasted into prompt" title="ChatGPT window with error message pasted into prompt">
 </p>
 
-💡 Pro tip: iterate! Checking again only takes a few more seconds. Why not have the AI review your code for bugs, then check it again for vulnerabilities?
+💡 Pro tip: iterate! It pays to have the AI check its answers. You can also combine prompts - first review your code for bugs, then again for vulnerabilities, and so on.
 
 ## Getting started
 
-NOTE: this is an early release and has only been tested on Ubuntu.
+NOTE: this is an early release. It was developed on WSL Ubuntu and has been tested on Kali.
 
 1. Start by running this command to install the script using curl.
 
@@ -75,3 +75,10 @@ Now you can run Chat Gippity from any folder:
 ```bash
 catgpty
 ```
+
+## Known issues
+
+### Clipboard not working on Kali
+
+- as a Kali user, if I follow the instructions, the program runs, and outputs a prompts\*.txt file.
+- but the prompt is not copied to the clipboard.
