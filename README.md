@@ -44,7 +44,9 @@ Remember to paste in your requirements or error messages if you chose 5. or 6:
 
 ## Getting started
 
-1. Start by running this command to install the script using curl:
+NOTE: this is an early release and has only been tested on Ubuntu.
+
+1. Start by running this command to install the script using curl.
 
 ```bash
 curl -L "https://github.com/angusgee/cat-gpty/releases/tag/v0.1.0-alpha" -o /tmp/catgpty
