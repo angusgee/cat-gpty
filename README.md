@@ -1,16 +1,22 @@
 # Cat Gippity
 
-Cat Gippity is a Linux utility for improved prompting.
+Turbocharge your software development workflows by leveraging the power of AI.
 
-For optimum results from AI models like ChatGPT, it's best to give the model as much relevant context as possible, and use delimiters to help it understand the content. You also want to use very clear proompts to explicitly instruct the model to do your bidding.
+For optimum results from AI models like ChatGPT, you want to:
 
-However, copying all your project files' contents, naming them, and delimiting them manually, is time consuming. Also, you won't know you're going to exceed the token limit until you do:
+1. Give the model as much _relevant_ context as possible.
+2. Use delimiters to help it understand the content.
+3. Explicitly instruct the model to do your bidding with clear and unambiguous prompts.
+
+However, copying your project files, naming them, and delimiting them manually, is time consuming.
+
+Also, you won't know you're going to exceed the token limit until you do:
 
 <p align="center">
   <img src="./assets/chatgpt-token-error.png" alt="ChatGPT exceeded token limit error message" title="ChatGPT exceeded token limit error message" width="75%">
 </p>
 
-## ⚡ Solution ⚡
+## ⚡ The Solution ⚡
 
 Cat Gippity solves these issues for you! 💪🏽
 
