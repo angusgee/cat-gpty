@@ -55,7 +55,7 @@ NOTE: this is an early release and has only been tested on Ubuntu.
 1. Start by running this command to install the script using curl.
 
 ```bash
-curl -L "https://github.com/angusgee/cat-gpty/releases/tag/v0.1.0-alpha" -o /tmp/catgpty
+curl -L "https://github.com/angusgee/cat-gpty/releases/tag/v0.1.0-alpha/catgpty" -o /tmp/catgpty
 ```
 
 2. Next, move the program into your /usr/local/bin directory - or anywhere else you please:
