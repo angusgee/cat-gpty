@@ -18,7 +18,7 @@ Also, you won't know you're going to exceed the token limit until you do:
 
 ## ⚡ The Solution ⚡
 
-Cat Gippity solves these issues for you! 💪🏽
+Cat Gippity solves these issues for you! 🔥🔥
 
 Run the script from your project folder and choose to add on a pre-proompt:
 
